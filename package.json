@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies":{
+    "react-native-extended-stylesheet": "^0.11.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giuseppeabn/react-native-loader-skeletor.git"
