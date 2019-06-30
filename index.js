@@ -1,14 +1,8 @@
 import React, { PureComponent } from "react";
-import { Animated, View, StyleSheet, Text } from "react-native";
+import { Animated, View } from "react-native";
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import PropTypes from "prop-types";
-//import colors from "../../utils/colors";
-const AVATAR_SIZE = {
-    default: 50,
-    large: 30,
-    small: 25
-};
 
 class LoaderSkeletor extends PureComponent {
     constructor(props) {
@@ -18,16 +12,15 @@ class LoaderSkeletor extends PureComponent {
         };
     }
     startAnimation = () => {
-        //Animacion con loop infinito
         Animated.loop(
             Animated.sequence([
                 Animated.timing(this.state.animation, {
                     toValue: 1,
-                    duration: this.props.animationDuration, //default 500
+                    duration: this.props.animationDuration, 
                 }),
                 Animated.timing(this.state.animation, {
                     toValue: 0,
-                    duration: this.props.animationDuration, //default 500
+                    duration: this.props.animationDuration, 
                 })
             ])
         ).start();
@@ -46,7 +39,6 @@ class LoaderSkeletor extends PureComponent {
     }
 
     render() {
-        // colores
         const interpolatedBackground = this.state.animation.interpolate({
             inputRange: [0, 1, 2],
             outputRange: [this.props.primaryColor, this.props.secondaryColor, this.props.thirdColor]
@@ -76,7 +68,6 @@ class LoaderSkeletor extends PureComponent {
         if (loading === false) {
             return this.props.children || null;
         }
-        //retorna la altura y ancho para cada parrafo
         const paragraphInitialStyles = index => {
             let height = pHeight;
             let width = pWidth;
@@ -88,19 +79,7 @@ class LoaderSkeletor extends PureComponent {
                 width
             };
         };
-        //altura y ancho de titulo
-        const titleInitialStyles = {
-            height: tHeight,
-            width: tWidth
-        };
-        // configuracion de avatar
-        const avatarInitialStyles = {
-            height: AVATAR_SIZE[aSize] || aSize,
-            width: AVATAR_SIZE[aSize] || aSize,
-            borderRadius: aShape === "circle" ? AVATAR_SIZE[aSize] / 2 || aSize / 2 : 3,
-            marginRight: reverse ? 0 : 10, //reverse true false define en que lugar se muestra
-            marginLeft: reverse ? 10 : 0   // el avatar
-        };
+       
         return (
             <View
                 style={[
@@ -142,87 +121,12 @@ class LoaderSkeletor extends PureComponent {
                             </View>
                         ))}
                     </View>
-
-
                 )}
-                {/* {listPublication && (
-                    
-                    <View
-                        style={[
-                            //original
-                            //styles.paragraph,
-                            //paragraphInitialStyles(index),//altura ancho
-                            //paragraphStyles,
-                            styles.containerList,
-                            //{ backgroundColor: interpolatedBackground }
-                        ]}>
-                        <Animated.View
-                            style={[
-                                styles.containerImg,
-                                { backgroundColor: interpolatedBackground }
-                            ]}
-                        />
-                        <View
-                            style={styles.containerLines}>
-                            {[...Array(4)].map((_, index) => (
-                                <Animated.View
-                                    key={index}
-                                    style={[
-                                        styles.paragraphListPub,
-                                        paragraphInitialStyles(index),//altura ancho
-                                        paragraphStyles,
-                                        { backgroundColor: interpolatedBackground }
-                                    ]}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                )} */}
-                {/* {avatar && (
-                    <Animated.View
-                        style={[
-                            styles.avatar,
-                            avatarInitialStyles,
-                            avatarStyles,
-                            { backgroundColor: interpolatedBackground }
-                        ]}
-                    />
-                )}
-
-                <View style={styles.content}>
-                    {title && (
-                        <Animated.View
-                            style={[
-                                styles.title,
-                                titleInitialStyles,
-                                titleStyles,
-                                { backgroundColor: interpolatedBackground }
-                            ]}
-                        />
-                    )}
-                    {paragraph && (
-                        <View style={styles.paragraphContainer}>
-                            {[...Array(pRows)].map((_, index) => (
-                                <Animated.View
-                                    key={index}
-                                    style={[
-                                        styles.paragraph,
-                                        paragraphInitialStyles(index),//altura ancho
-                                        paragraphStyles,
-                                        { backgroundColor: interpolatedBackground }
-                                    ]}
-                                />
-                            ))}
-                        </View>
-                    )}
-                    
-                                </View> */}
             </View>
         );
     }
 }
 
-/************** VERIFICACION DE TIPOS **************/
 LoaderSkeletor.propTypes = {
     primaryColor: PropTypes.string,
     secondaryColor: PropTypes.string,
@@ -258,9 +162,7 @@ LoaderSkeletor.propTypes = {
     withImage: PropTypes.bool,
     numberLines: PropTypes.number
 };
-/************** FIN VERIFICACION DE TIPOS **************/
 
-/************** VALORES POR DEFAULT **************/
 LoaderSkeletor.defaultProps = {
     primaryColor: "rgba(195, 191, 191, 1)",
     secondaryColor: "rgba(213, 211, 211, 1)",
@@ -288,7 +190,6 @@ LoaderSkeletor.defaultProps = {
     withImage: true,
     numberLines: 4
 };
-/************** FIN VALORES POR DEFAULT **************/
 
 const styles = EStyleSheet.create({
     container: {
@@ -318,14 +219,12 @@ const styles = EStyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         marginVertical: '10rem',
-        //marginHorizontal: '5%',
     },
     containerImg: {
         width: '30%',
         borderRadius: '5rem'
     },
     containerLines: {
-        //width: '70%',
     },
     paragraphListPub: {
         width: '100%',
@@ -336,6 +235,4 @@ const styles = EStyleSheet.create({
 });
 
 
-module.exports = {
-    LoaderSkeletor
-} 
+export default LoaderSkeletor;
